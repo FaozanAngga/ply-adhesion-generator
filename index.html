@@ -15,12 +15,12 @@
     <!-- LOGIN PAGE -->
     <section id="loginPage"
         class="flex min-h-screen items-center justify-center bg-linear-to-br from-slate-200 to-slate-300 px-4">
+
         <div class="w-full max-w-sm">
+
             <div class="rounded-3xl bg-white p-6 shadow-xl sm:p-8">
 
                 <div class="mb-8 text-center">
-                    <div class="mb-2 text-3xl">🧪</div>
-
                     <h1 class="text-2xl font-bold tracking-tight text-slate-800">
                         Ply Adhesion
                         <span class="text-red-600">Generator</span>
@@ -32,6 +32,7 @@
                 </div>
 
                 <form id="loginForm" autocomplete="on" onsubmit="handleLogin(event)" class="space-y-5">
+
                     <div>
                         <label for="username" class="mb-2 block text-sm font-medium text-slate-700">
                             Username
@@ -55,141 +56,268 @@
 
                     <div id="loginError"
                         class="hidden rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
-                        ⚠ Username / Password salah
+
+                        Username / Password salah
+
                     </div>
 
                     <button id="loginBtn" type="submit"
                         class="w-full rounded-xl bg-slate-800 px-4 py-3 font-semibold text-white transition hover:bg-slate-700 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60">
+
                         LOGIN
+
                     </button>
+
                 </form>
+
             </div>
 
             <p class="mt-5 text-center text-xs text-slate-500">
                 Ply Adhesion Generator · Laboratory Tool
             </p>
+
         </div>
+
     </section>
 
 
     <!-- APPLICATION PAGE -->
-    <main id="appPage" class="hidden min-h-screen flex-col bg-slate-100">
-
-        <!-- HEADER -->
-        <header class="border-b border-slate-200 bg-white">
-            <div class="mx-auto flex w-full max-w-5xl items-center justify-between gap-3 px-4 py-3">
-                <div class="min-w-0">
-                    <h1 class="truncate text-base font-bold text-slate-800">
-                        Ply Adhesion
-                        <span class="text-red-600">Generator</span>
-                    </h1>
-
-                    <p class="text-xs text-slate-500">
-                        Laboratory Testing Tool
-                    </p>
-                </div>
-
-                <div class="flex items-center gap-2">
-                    <div class="hidden text-right sm:block">
-                        <p id="userDisplay" class="text-sm font-medium text-slate-700">
-                            User
-                        </p>
-
-                        <p id="clock" class="text-xs text-slate-500">
-                            --/--/---- --:--:--
-                        </p>
-                    </div>
-
-                    <button type="button" onclick="handleLogout()"
-                        class="flex items-center justify-center rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-sm font-semibold text-red-600 transition hover:bg-red-100 active:scale-95">
-                        <span class="hidden sm:inline">Logout</span>
-                        <span class="sm:hidden">⎋</span>
-                    </button>
-                </div>
-            </div>
-        </header>
+    <main id="appPage" class="hidden min-h-screen flex-col bg-slate-100 pb-12">
 
 
-        <!-- MOBILE USER INFO -->
-        <div class="border-b border-slate-200 bg-white px-4 py-2 sm:hidden">
-            <p id="mobileUserDisplay" class="text-sm font-medium text-slate-700">
-                User
-            </p>
+        <!-- OVERLAY -->
+        <div id="sidebarOverlay" onclick="closeSidebar()"
+            class="fixed inset-0 z-40 hidden bg-slate-950/40 backdrop-blur-[1px]">
 
-            <p id="mobileClock" class="mt-0.5 text-xs text-slate-500">
-                --/--/---- --:--:--
-            </p>
         </div>
 
 
-        <!-- MAIN CONTENT -->
-        <div class="mx-auto w-full max-w-5xl flex-1 px-4 py-5">
-            <section class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+        <!-- SIDEBAR -->
+        <aside id="sidebar"
+            class="fixed bottom-0 left-0 top-0 z-50 flex w-[290px] -translate-x-full flex-col bg-white shadow-2xl transition-transform duration-300 ease-out">
 
-                <!-- TITLE -->
-                <div class="mb-5">
-                    <h2 class="text-lg font-bold text-slate-800">
-                        Ply Adhesion Generator
-                    </h2>
+            <!-- SIDEBAR HEADER -->
+            <div class="border-b border-slate-200 p-5">
 
-                    <p class="mt-1 text-sm text-slate-500">
-                        Generate or manually input testing values.
+                <div class="flex items-start justify-between gap-3">
+
+                    <div>
+                        <p class="text-lg font-bold text-slate-800">
+                            Ply Adhesion
+                        </p>
+
+                        <p class="text-sm text-slate-500">
+                            Laboratory Testing
+                        </p>
+                    </div>
+
+                    <button type="button" onclick="closeSidebar()"
+                        class="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 text-lg text-slate-600 transition hover:bg-slate-100 active:scale-95">
+
+                        ×
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- SIDEBAR MENU -->
+            <div class="flex-1 overflow-y-auto p-4">
+
+                <!-- MODE -->
+                <div>
+
+                    <p class="mb-2 px-2 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">
+                        Input Mode
                     </p>
+
+                    <div class="space-y-2">
+
+                        <button id="autoModeBtn" type="button" onclick="setInputMode('auto')"
+                            class="sidebar-menu-btn sidebar-menu-active">
+
+                            <span>Auto Generate</span>
+
+                            <span class="text-xs">⚡</span>
+
+                        </button>
+
+
+                        <button id="manualModeBtn" type="button" onclick="setInputMode('manual')"
+                            class="sidebar-menu-btn">
+
+                            <span>Manual Input</span>
+
+                            <span class="text-xs">✎</span>
+
+                        </button>
+
+                    </div>
+
                 </div>
 
 
-                <!-- SETTINGS -->
-                <div class="mb-5 rounded-2xl border border-slate-200 bg-slate-50 p-3">
+                <!-- DIVIDER -->
+                <div class="my-5 border-t border-slate-200"></div>
 
-                    <!-- DECIMAL -->
-                    <p class="mb-2 text-xs font-bold uppercase tracking-wide text-slate-500">
+
+                <!-- DECIMAL -->
+                <div>
+
+                    <p class="mb-2 px-2 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">
                         Decimal Precision
                     </p>
 
                     <div class="grid grid-cols-2 gap-2">
-                        <button id="decimal1Btn" type="button" onclick="setDecimal(1)"
-                            class="rounded-xl border border-slate-300 bg-white px-3 py-3 text-sm font-semibold text-slate-600 transition active:scale-[0.98]">
+
+                        <button id="decimal1Btn" type="button" onclick="setDecimal(1)" class="sidebar-decimal-btn">
+
                             1 Decimal
+
                         </button>
+
 
                         <button id="decimal2Btn" type="button" onclick="setDecimal(2)"
-                            class="rounded-xl bg-slate-800 px-3 py-3 text-sm font-semibold text-white shadow-sm transition active:scale-[0.98]">
+                            class="sidebar-decimal-btn sidebar-decimal-active">
+
                             2 Decimal
+
                         </button>
+
                     </div>
 
+                </div>
 
-                    <!-- INPUT MODE -->
-                    <p class="mb-2 mt-5 text-xs font-bold uppercase tracking-wide text-slate-500">
-                        Input Mode
+            </div>
+
+
+            <!-- SIDEBAR USER -->
+            <div class="border-t border-slate-200 p-4">
+
+                <div class="mb-3 rounded-2xl bg-slate-50 p-3">
+
+                    <p class="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400">
+                        Current User
                     </p>
 
-                    <div class="grid grid-cols-2 gap-2">
-                        <button id="autoModeBtn" type="button" onclick="setInputMode('auto')"
-                            class="rounded-xl bg-slate-800 px-3 py-3 text-sm font-semibold text-white shadow-sm transition active:scale-[0.98]">
-                            ⚡ Auto
-                        </button>
+                    <p id="sidebarUserDisplay" class="mt-1 truncate text-sm font-semibold text-slate-700">
 
-                        <button id="manualModeBtn" type="button" onclick="setInputMode('manual')"
-                            class="rounded-xl border border-slate-300 bg-white px-3 py-3 text-sm font-semibold text-slate-600 transition active:scale-[0.98]">
-                            ✏️ Manual
-                        </button>
+                        User
+
+                    </p>
+
+                </div>
+
+
+                <button type="button" onclick="handleLogout()"
+                    class="flex w-full items-center justify-center rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-600 transition hover:bg-red-100 active:scale-[0.98]">
+
+                    Logout
+
+                </button>
+
+            </div>
+
+        </aside>
+
+
+        <!-- HEADER -->
+        <header class="sticky top-0 z-30 border-b border-slate-200 bg-white/95 backdrop-blur">
+
+            <div class="mx-auto flex w-full max-w-5xl items-center justify-between gap-3 px-4 py-3">
+
+                <!-- LEFT -->
+                <div class="flex min-w-0 items-center gap-3">
+
+                    <button type="button" onclick="toggleSidebar()" aria-label="Open menu"
+                        class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white text-xl font-semibold text-slate-700 transition hover:bg-slate-50 active:scale-95">
+
+                        <span class="burger-line">☰</span>
+
+                    </button>
+
+
+                    <div class="min-w-0">
+
+                        <h1 class="truncate text-sm font-bold text-slate-800">
+                            Ply Adhesion
+                        </h1>
+
+                        <p class="truncate text-[11px] text-slate-500">
+                            Laboratory Testing
+                        </p>
+
                     </div>
+
+                </div>
+
+
+                <!-- RIGHT -->
+                <div class="min-w-0 text-right">
+
+                    <p id="headerClock" class="whitespace-nowrap text-xs font-semibold tabular-nums text-slate-700">
+
+                        --:--:--
+
+                    </p>
+
+                    <p id="headerUserDisplay" class="mt-0.5 max-w-[130px] truncate text-[11px] text-slate-500">
+
+                        User
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- MAIN CONTENT -->
+        <div class="mx-auto w-full max-w-5xl flex-1 px-3 py-4 sm:px-4 sm:py-5">
+
+            <section class="rounded-2xl border border-slate-200 bg-white p-3 shadow-sm sm:p-4">
+
+
+                <!-- TITLE -->
+                <div class="mb-4">
+
+                    <h2 id="pageModeTitle" class="text-base font-bold text-slate-800">
+
+                        Auto Generate
+
+                    </h2>
+
+                    <p id="pageModeDescription" class="mt-1 text-xs text-slate-500">
+
+                        Automatically generate testing values.
+
+                    </p>
+
                 </div>
 
 
                 <!-- SAMPLE CONTAINER -->
                 <div id="sampleContainer" class="grid grid-cols-2 gap-2">
 
+
                     <!-- SAMPLE A -->
                     <section id="sampleA" class="rounded-2xl border border-slate-200 bg-slate-50 p-3">
+
                         <div class="mb-3 text-center">
+
                             <h3 class="text-sm font-bold text-slate-800">
                                 Sample A
                             </h3>
+
                         </div>
 
+
                         <div class="grid grid-cols-2 gap-2 border-b border-slate-200 pb-2">
+
                             <div class="text-center text-[11px] font-bold tracking-wide text-slate-500">
                                 DRY
                             </div>
@@ -197,25 +325,35 @@
                             <div class="text-center text-[11px] font-bold tracking-wide text-slate-500">
                                 WET
                             </div>
+
                         </div>
 
+
                         <div class="mt-2 grid grid-cols-2 gap-2">
+
                             <div id="A_dry" class="flex min-w-0 flex-col gap-2"></div>
 
                             <div id="A_wet" class="flex min-w-0 flex-col gap-2"></div>
+
                         </div>
+
                     </section>
 
 
                     <!-- SAMPLE B -->
                     <section id="sampleB" class="rounded-2xl border border-slate-200 bg-slate-50 p-3">
+
                         <div class="mb-3 text-center">
+
                             <h3 class="text-sm font-bold text-slate-800">
                                 Sample B
                             </h3>
+
                         </div>
 
+
                         <div class="grid grid-cols-2 gap-2 border-b border-slate-200 pb-2">
+
                             <div class="text-center text-[11px] font-bold tracking-wide text-slate-500">
                                 DRY
                             </div>
@@ -223,13 +361,18 @@
                             <div class="text-center text-[11px] font-bold tracking-wide text-slate-500">
                                 WET
                             </div>
+
                         </div>
 
+
                         <div class="mt-2 grid grid-cols-2 gap-2">
+
                             <div id="B_dry" class="flex min-w-0 flex-col gap-2"></div>
 
                             <div id="B_wet" class="flex min-w-0 flex-col gap-2"></div>
+
                         </div>
+
                     </section>
 
 
@@ -237,7 +380,7 @@
                     <section id="manualInputArea" class="col-span-2 hidden">
                         <div class="mx-auto w-full max-w-xs">
 
-                            <div class="mb-4 text-center">
+                            <div class="mb-2 text-center">
                                 <h3 class="text-sm font-bold text-slate-800">
                                     Manual Input
                                 </h3>
@@ -247,33 +390,31 @@
                                 </p>
                             </div>
 
-
-                            <!-- 5 INPUT VALUES -->
+                            <!-- MANUAL VALUE INPUT -->
                             <div id="manualValuesContainer" class="flex flex-col gap-2"></div>
 
-
-                            <!-- CLEAR VALUE -->
+                            <!-- CLEAR -->
                             <button type="button" onclick="clearManualValues()"
-                                class="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-600 transition hover:bg-red-100 active:scale-[0.98]">
-                                <span class="text-base">↺</span>
+                                class="mt-3 flex h-12 w-full items-center justify-center gap-2 rounded-xl border border-red-200 bg-red-50 text-sm font-semibold tracking-wide text-red-600 transition hover:bg-red-100 active:scale-[0.98]">
+
+                                <span class="text-lg">↻</span>
                                 CLEAR VALUE
                             </button>
 
-
-                            <!-- ERROR -->
-                            <p id="manualError" class="mt-3 hidden text-center text-xs text-red-600"></p>
-
-
                             <!-- AVERAGE -->
-                            <div class="mt-4 rounded-2xl bg-slate-800 p-3 shadow-sm">
-                                <p class="text-center text-[10px] font-bold uppercase tracking-[0.2em] text-slate-300">
+                            <div class="mt-3 rounded-2xl bg-slate-800 p-3 shadow-lg">
+
+                                <p class="text-center text-[11px] font-bold uppercase tracking-[0.2em] text-slate-300">
                                     Average
                                 </p>
 
                                 <div id="manualAverage"
-                                    class="mt-2 flex h-14 items-center justify-center rounded-xl bg-slate-700 text-lg font-bold text-white">
+                                    class="mt-2 flex h-12 items-center justify-center rounded-xl bg-slate-700 text-lg font-bold text-white">
+
                                     -
+
                                 </div>
+
                             </div>
 
                         </div>
@@ -284,23 +425,32 @@
 
                 <!-- GENERATE BUTTON -->
                 <button id="generateBtn" type="button" onclick="handleGenerate()"
-                    class="h-12 w-full rounded-xl bg-slate-800 text-sm font-semibold text-white transition active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60">
+                    class="mt-4 h-12 w-full rounded-xl bg-slate-800 text-sm font-semibold text-white transition hover:bg-slate-700 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60">
+
                     GENERATE
+
                 </button>
 
             </section>
+
         </div>
 
 
         <!-- FOOTER -->
         <footer class="footer">
+
             <div class="marquee">
+
                 <span>
-                    © 2026 Ply Adhesion Generate &nbsp;|&nbsp; Developed by Faozan Angga Rian &nbsp;|&nbsp; Laboratory
-                    Testing
-                    Generator
+                    © 2026 Ply Adhesion Generate
+                    &nbsp;|&nbsp;
+                    Developed by Faozan Angga Rian
+                    &nbsp;|&nbsp;
+                    Laboratory Testing Generator
                 </span>
+
             </div>
+
         </footer>
 
     </main>
