@@ -112,7 +112,8 @@
     color: white;
 
     box-shadow:
-        0 6px 16px rgba(15, 23, 42, 0.15);
+        0 6px 16px
+        rgba(15, 23, 42, 0.15);
 }
 
 
@@ -155,7 +156,8 @@
     color: white;
 
     box-shadow:
-        0 4px 12px rgba(15, 23, 42, 0.15);
+        0 4px 12px
+        rgba(15, 23, 42, 0.15);
 }
 
 
