@@ -67,28 +67,37 @@ function openSidebar() {
     const sidebar = document.getElementById("sidebar");
     const overlay = document.getElementById("sidebarOverlay");
 
-    sidebar.classList.remove("-translate-x-full");
     overlay.classList.remove("hidden");
+
+    requestAnimationFrame(() => {
+        sidebar.classList.add("sidebar-open");
+        overlay.classList.add("sidebar-overlay-open");
+    });
 }
 
 function closeSidebar() {
     const sidebar = document.getElementById("sidebar");
     const overlay = document.getElementById("sidebarOverlay");
 
-    sidebar.classList.add("-translate-x-full");
-    overlay.classList.add("hidden");
+    sidebar.classList.remove("sidebar-open");
+    overlay.classList.remove("sidebar-overlay-open");
+
+    setTimeout(() => {
+        if (!sidebar.classList.contains("sidebar-open")) {
+            overlay.classList.add("hidden");
+        }
+    }, 450);
 }
 
 function toggleSidebar() {
     const sidebar = document.getElementById("sidebar");
 
-    if (sidebar.classList.contains("-translate-x-full")) {
-        openSidebar();
-    } else {
+    if (sidebar.classList.contains("sidebar-open")) {
         closeSidebar();
+    } else {
+        openSidebar();
     }
 }
-
 
 // ========================================
 // DECIMAL PRECISION

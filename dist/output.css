@@ -382,10 +382,6 @@
     --tw-translate-x: calc(calc(1 / 2 * 100%) * -1);
     translate: var(--tw-translate-x) var(--tw-translate-y);
   }
-  .-translate-x-full {
-    --tw-translate-x: -100%;
-    translate: var(--tw-translate-x) var(--tw-translate-y);
-  }
   .-translate-y-5 {
     --tw-translate-y: calc(var(--spacing) * -5);
     translate: var(--tw-translate-x) var(--tw-translate-y);
@@ -713,8 +709,8 @@
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--default-transition-duration));
   }
-  .transition-transform {
-    transition-property: transform, translate, scale, rotate;
+  .transition-opacity {
+    transition-property: opacity;
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--default-transition-duration));
   }
@@ -722,9 +718,9 @@
     --tw-duration: 200ms;
     transition-duration: 200ms;
   }
-  .duration-300 {
-    --tw-duration: 300ms;
-    transition-duration: 300ms;
+  .duration-500 {
+    --tw-duration: 500ms;
+    transition-duration: 500ms;
   }
   .ease-out {
     --tw-ease: var(--ease-out);
@@ -1221,7 +1217,19 @@ body.dark-mode .manual-value:focus {
   box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.15) !important;
 }
 #sidebar {
-  transition: transform 0.3s ease, background 0.3s ease;
+  transform: translateX(-100%);
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+#sidebar.sidebar-open {
+  transform: translateX(0);
+}
+#sidebarOverlay {
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+#sidebarOverlay.sidebar-overlay-open {
+  opacity: 1;
 }
 body.dark-mode #sidebar {
   background: #0f172a !important;

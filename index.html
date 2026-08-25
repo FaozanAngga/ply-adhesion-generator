@@ -112,7 +112,7 @@
 
         <!-- SIDEBAR OVERLAY -->
         <div id="sidebarOverlay" onclick="closeSidebar()"
-            class="fixed inset-0 z-40 hidden bg-slate-950/40 backdrop-blur-[1px]">
+            class="fixed inset-0 z-40 hidden bg-slate-950/40 opacity-0 backdrop-blur-[1px] transition-opacity duration-500 ease-out">
         </div>
 
 
@@ -162,7 +162,7 @@
 
         <!-- SIDEBAR -->
         <aside id="sidebar"
-            class="fixed bottom-0 left-0 top-0 z-50 flex w-[290px] -translate-x-full flex-col bg-white shadow-2xl transition-transform duration-300 ease-out">
+            class="fixed bottom-0 left-0 top-0 z-50 flex w-[290px] flex-col bg-white shadow-2xl">
 
             <div class="border-b border-slate-200 p-5">
 
