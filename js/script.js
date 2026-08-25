@@ -8,6 +8,56 @@ const USERS = [
 let decimalPrecision = 2;
 let inputMode = "auto";
 let clockInterval;
+const SESSION_DURATION = 4 * 60 * 60 * 1000;
+
+
+// ========================================
+// THEME
+// ========================================
+
+function updateThemeUI() {
+    const isDark = document.body.classList.contains("dark-mode");
+
+    const themeIcon = document.getElementById("themeIcon");
+    const themeText = document.getElementById("themeText");
+    const themeDescription = document.getElementById("themeDescription");
+
+    if (!themeIcon || !themeText || !themeDescription) return;
+
+    if (isDark) {
+        themeIcon.textContent = "☀";
+        themeText.textContent = "Light Mode";
+        themeDescription.textContent = "Switch to light appearance";
+    } else {
+        themeIcon.textContent = "☾";
+        themeText.textContent = "Dark Mode";
+        themeDescription.textContent = "Switch to dark appearance";
+    }
+}
+
+function toggleTheme() {
+    document.body.classList.toggle("dark-mode");
+
+    const isDark = document.body.classList.contains("dark-mode");
+
+    localStorage.setItem(
+        "plyAdhesionTheme",
+        isDark ? "dark" : "light"
+    );
+
+    updateThemeUI();
+}
+
+function loadTheme() {
+    const savedTheme = localStorage.getItem("plyAdhesionTheme");
+
+    if (savedTheme === "dark") {
+        document.body.classList.add("dark-mode");
+    }
+
+    updateThemeUI();
+}
+
 
 // ========================================
 // SIDEBAR
@@ -38,6 +88,7 @@ function toggleSidebar() {
         closeSidebar();
     }
 }
+
 
 // ========================================
 // DECIMAL PRECISION
@@ -75,6 +126,7 @@ function updateManualPrecision() {
 
     updateManualAverage();
 }
+
 
 // ========================================
 // INPUT MODE
@@ -129,6 +181,7 @@ function setInputMode(mode) {
     closeSidebar();
 }
 
+
 // ========================================
 // CLEAR AUTO VALUES
 // ========================================
@@ -139,6 +192,7 @@ function clearAllValues() {
     document.getElementById("B_dry").innerHTML = "";
     document.getElementById("B_wet").innerHTML = "";
 }
+
 
 // ========================================
 // MANUAL INPUT
@@ -192,7 +246,6 @@ function handleManualInput(event) {
 
     let digits = input.value.replace(/\D/g, "");
 
-    // Maksimal 5 digit
     digits = digits.slice(0, 5);
 
     input.dataset.rawValue = digits;
@@ -249,6 +302,44 @@ function clearManualValues() {
     }
 }
 
+
+// ========================================
+// LOGIN TOAST
+// ========================================
+
+function showLoginToast(user) {
+    const toast = document.getElementById("loginToast");
+    const message = document.getElementById("loginToastMessage");
+
+    if (!toast || !message) return;
+
+    message.textContent =
+        `Selamat datang, ${user.username}!`;
+
+    toast.classList.remove(
+        "-translate-y-5",
+        "opacity-0"
+    );
+
+    toast.classList.add(
+        "translate-y-0",
+        "opacity-100"
+    );
+
+    setTimeout(() => {
+        toast.classList.remove(
+            "translate-y-0",
+            "opacity-100"
+        );
+
+        toast.classList.add(
+            "-translate-y-5",
+            "opacity-0"
+        );
+    }, 3000);
+}
+
+
 // ========================================
 // LOGIN
 // ========================================
@@ -292,7 +383,17 @@ function handleLogin(e) {
                 JSON.stringify(user)
             );
 
+            localStorage.setItem(
+                "loginTime",
+                Date.now()
+            );
+
+
             showApp(user);
+            showLoginToast(user);
+
+            loginBtn.disabled = false;
+            loginBtn.textContent = "LOGIN";
         } else {
             loginError.classList.remove("hidden");
 
@@ -312,15 +413,21 @@ function handleLogin(e) {
     }, 400);
 }
 
+
 // ========================================
 // SHOW APPLICATION
 // ========================================
 
 function showApp(user) {
+    const loginThemeToggle = document.getElementById("loginThemeToggle");
     const loginPage = document.getElementById("loginPage");
     const appPage = document.getElementById("appPage");
 
     loginPage.classList.add("hidden");
+
+    if (loginThemeToggle) {
+        loginThemeToggle.classList.add("hidden");
+    }
 
     appPage.classList.remove("hidden");
     appPage.classList.add("flex");
@@ -339,22 +446,78 @@ function showApp(user) {
     startClock();
 }
 
+
 // ========================================
-// LOGOUT
+// LOGOUT MODAL
 // ========================================
 
 function handleLogout() {
     closeSidebar();
+    openLogoutModal();
+}
+
+function openLogoutModal() {
+    const modal = document.getElementById("logoutModal");
+    const modalCard = document.getElementById("logoutModalCard");
+
+    if (!modal || !modalCard) return;
+
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+
+    requestAnimationFrame(() => {
+        modalCard.classList.remove(
+            "scale-95",
+            "opacity-0"
+        );
+
+        modalCard.classList.add(
+            "scale-100",
+            "opacity-100"
+        );
+    });
+}
+
+function closeLogoutModal() {
+    const modal = document.getElementById("logoutModal");
+    const modalCard = document.getElementById("logoutModalCard");
+
+    if (!modal || !modalCard) return;
+
+    modalCard.classList.remove(
+        "scale-100",
+        "opacity-100"
+    );
+
+    modalCard.classList.add(
+        "scale-95",
+        "opacity-0"
+    );
+
+    setTimeout(() => {
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+    }, 200);
+}
+
+function confirmLogout() {
+    closeLogoutModal();
 
     localStorage.removeItem("loggedUser");
+    localStorage.removeItem("loginTime");
 
     const loginPage = document.getElementById("loginPage");
     const appPage = document.getElementById("appPage");
+    const loginThemeToggle = document.getElementById("loginThemeToggle");
 
     appPage.classList.add("hidden");
     appPage.classList.remove("flex");
 
     loginPage.classList.remove("hidden");
+
+    if (loginThemeToggle) {
+        loginThemeToggle.classList.remove("hidden");
+    }
 
     document.getElementById("password").value = "";
 
@@ -389,21 +552,46 @@ function startClock() {
     clockInterval = setInterval(tick, 1000);
 }
 
+
 // ========================================
 // SESSION CHECK
 // ========================================
 
-window.onload = function () {
-    const saved = localStorage.getItem("loggedUser");
+function checkSession() {
+    const userData = localStorage.getItem("loggedUser");
+    const loginTime = localStorage.getItem("loginTime");
 
-    if (!saved) return;
+    if (!userData || !loginTime) {
+        return null;
+    }
+
+    const elapsedTime = Date.now() - Number(loginTime);
+
+    if (elapsedTime >= SESSION_DURATION) {
+        localStorage.removeItem("loggedUser");
+        localStorage.removeItem("loginTime");
+
+        return null;
+    }
 
     try {
-        const user = JSON.parse(saved);
-        showApp(user);
-    } catch (err) {
+        return JSON.parse(userData);
+    } catch (error) {
         localStorage.removeItem("loggedUser");
+        localStorage.removeItem("loginTime");
+
+        return null;
     }
+}
+
+window.onload = function () {
+    loadTheme();
+
+    const user = checkSession();
+
+    if (!user) return;
+
+    showApp(user);
 };
 
 // ========================================
@@ -418,6 +606,7 @@ function randomValue(min, max) {
     );
 }
 
+
 // ========================================
 // SKELETON LOADING
 // ========================================
@@ -431,7 +620,7 @@ function showSkeleton(id) {
         const div = document.createElement("div");
 
         div.className =
-            "h-11 animate-pulse rounded-xl bg-slate-200";
+            "skeleton-box h-11 animate-pulse rounded-xl";
 
         if (i === 5) {
             div.classList.add("mt-2");
@@ -440,6 +629,7 @@ function showSkeleton(id) {
         container.appendChild(div);
     }
 }
+
 
 // ========================================
 // AUTO VALUE BOX
@@ -518,7 +708,7 @@ function createBoxes(dryId, wetId) {
     const dryAvgBox = document.createElement("div");
 
     dryAvgBox.className =
-        "mt-2 flex h-11 items-center justify-center rounded-xl bg-slate-800 text-sm font-bold text-white shadow-sm";
+        "average-box mt-2 flex h-11 items-center justify-center rounded-xl text-sm font-bold text-white shadow-sm";
 
     dryAvgBox.textContent =
         avgDry.toFixed(decimalPrecision);
@@ -528,13 +718,14 @@ function createBoxes(dryId, wetId) {
     const wetAvgBox = document.createElement("div");
 
     wetAvgBox.className =
-        "mt-2 flex h-11 items-center justify-center rounded-xl bg-slate-800 text-sm font-bold text-white shadow-sm";
+        "average-box mt-2 flex h-11 items-center justify-center rounded-xl text-sm font-bold text-white shadow-sm";
 
     wetAvgBox.textContent =
         avgWet.toFixed(decimalPrecision);
 
     wetEl.appendChild(wetAvgBox);
 }
+
 
 // ========================================
 // GENERATE

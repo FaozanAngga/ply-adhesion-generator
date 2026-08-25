@@ -2,6 +2,340 @@
 
 
 /* ========================================
+   GLOBAL
+======================================== */
+
+body {
+    background: #f1f5f9;
+    color: #1e293b;
+
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
+}
+
+body.dark-mode {
+    background: #020617;
+    color: #e2e8f0;
+}
+
+
+/* ========================================
+   ELEGANT HEADER
+======================================== */
+
+.app-header {
+    background:
+        rgba(255, 255, 255, 0.92);
+
+    border-bottom:
+        1px solid #e2e8f0;
+
+    backdrop-filter:
+        blur(14px);
+
+    box-shadow:
+        0 4px 18px rgba(15, 23, 42, 0.04);
+
+    transition:
+        background 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+/* GREEN ACCENT LINE */
+
+.app-header::after {
+    content: "";
+
+    display: block;
+
+    width: 100%;
+    height: 2px;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            #22c55e,
+            transparent);
+
+    opacity: 0.55;
+}
+
+
+/* HEADER INNER */
+
+.app-header-inner {
+    min-height: 68px;
+}
+
+
+/* ========================================
+   BURGER BUTTON
+======================================== */
+
+.burger-button {
+    background:
+        linear-gradient(145deg,
+            #1e293b,
+            #0f172a);
+
+    color: white;
+
+    box-shadow:
+        0 6px 16px rgba(15, 23, 42, 0.18);
+
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+.burger-button:hover {
+    transform:
+        translateY(-1px);
+
+    box-shadow:
+        0 9px 20px rgba(15, 23, 42, 0.25);
+}
+
+.burger-button:active {
+    transform:
+        scale(0.94);
+}
+
+.burger-icon {
+    font-size: 20px;
+    line-height: 1;
+}
+
+
+/* ========================================
+   HEADER TITLE
+======================================== */
+
+.app-header h1 {
+    color: #0f172a;
+
+    transition:
+        color 0.3s ease;
+}
+
+.app-header p {
+    color: #64748b;
+
+    transition:
+        color 0.3s ease;
+}
+
+
+/* ========================================
+   ONLINE BADGE
+======================================== */
+
+.header-online-indicator {
+    align-items: center;
+
+    padding:
+        3px 7px;
+
+    border-radius:
+        999px;
+
+    background:
+        #dcfce7;
+
+    color:
+        #15803d;
+
+    font-size:
+        8px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        0.08em;
+
+    border:
+        1px solid #bbf7d0;
+}
+
+
+/* ========================================
+   STATUS PANEL
+======================================== */
+
+.header-status-panel {
+    min-width: 112px;
+
+    background:
+        #f8fafc;
+
+    border:
+        1px solid #e2e8f0;
+
+    box-shadow:
+        0 3px 10px rgba(15, 23, 42, 0.04);
+
+    transition:
+        background 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+/* USER STATUS */
+
+.user-status-dot {
+    width: 6px;
+    height: 6px;
+
+    border-radius:
+        50%;
+
+    background:
+        #22c55e;
+
+    box-shadow:
+        0 0 0 3px rgba(34, 197, 94, 0.12);
+}
+
+
+/* ========================================
+   DARK MODE HEADER
+======================================== */
+
+body.dark-mode .app-header {
+    background:
+        rgba(15, 23, 42, 0.92);
+
+    border-bottom-color:
+        #1e293b;
+
+    box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+
+body.dark-mode .app-header::after {
+    background:
+        linear-gradient(90deg,
+            transparent,
+            #4ade80,
+            transparent);
+
+    opacity:
+        0.75;
+}
+
+
+/* BURGER */
+
+body.dark-mode .burger-button {
+    background:
+        linear-gradient(145deg,
+            #22c55e,
+            #15803d);
+
+    color:
+        white;
+
+    box-shadow:
+        0 7px 18px rgba(22, 163, 74, 0.2);
+}
+
+body.dark-mode .burger-button:hover {
+    box-shadow:
+        0 9px 24px rgba(22, 163, 74, 0.28);
+}
+
+
+/* TITLE */
+
+body.dark-mode .app-header h1 {
+    color:
+        #f8fafc;
+}
+
+body.dark-mode .app-header p {
+    color:
+        #94a3b8;
+}
+
+
+/* ONLINE BADGE */
+
+body.dark-mode .header-online-indicator {
+    background:
+        #14532d;
+
+    border-color:
+        #166534;
+
+    color:
+        #86efac;
+}
+
+
+/* STATUS PANEL */
+
+body.dark-mode .header-status-panel {
+    background:
+        #111827;
+
+    border-color:
+        #334155;
+
+    box-shadow:
+        0 4px 14px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-mode #headerUserDisplay,
+body.dark-mode #headerClock {
+    color:
+        #e2e8f0 !important;
+}
+
+
+/* ========================================
+   MOBILE HEADER
+======================================== */
+
+@media (max-width: 640px) {
+
+    .app-header-inner {
+        min-height: 62px;
+    }
+
+    .burger-button {
+        width: 42px;
+        height: 42px;
+
+        border-radius:
+            15px;
+    }
+
+    .burger-icon {
+        font-size:
+            18px;
+    }
+
+    .header-status-panel {
+        min-width:
+            100px;
+
+        padding:
+            7px 10px;
+
+        border-radius:
+            14px;
+    }
+
+}
+
+/* ========================================
    FOOTER
 ======================================== */
 
@@ -21,14 +355,21 @@
 
     background: #f1f3f6;
     border-top: 1px solid #d8dee6;
+
+    transition:
+        background 0.3s ease,
+        border-color 0.3s ease;
 }
 
+body.dark-mode .footer {
+    background: #0f172a;
+    border-top-color: #1e293b;
+}
 
 .marquee {
     width: 100%;
     overflow: hidden;
 }
-
 
 .marquee span {
     display: inline-block;
@@ -45,6 +386,9 @@
     color: #64748b;
 }
 
+body.dark-mode .marquee span {
+    color: #94a3b8;
+}
 
 @keyframes scrollText {
 
@@ -59,11 +403,441 @@
 
 
 /* ========================================
+   LOGIN SUCCESS TOAST
+======================================== */
+
+#loginToast {
+    transition:
+        transform 0.35s ease,
+        opacity 0.35s ease;
+}
+
+.login-toast-content {
+    background: #ffffff;
+    border: 1px solid #bbf7d0;
+    color: #166534;
+}
+
+.login-toast-icon {
+    background: #dcfce7;
+    color: #16a34a;
+
+    font-size: 20px;
+    font-weight: 900;
+}
+
+#loginToastMessage {
+    color: #64748b;
+}
+
+body.dark-mode .login-toast-content {
+    background: #0f172a;
+    border-color: #166534;
+    color: #f0fdf4;
+}
+
+body.dark-mode .login-toast-icon {
+    background: #14532d;
+    color: #86efac;
+}
+
+body.dark-mode #loginToastMessage {
+    color: #94a3b8;
+}
+
+
+/* ========================================
+   LOGOUT MODAL
+======================================== */
+
+.logout-modal-card {
+    background: #ffffff;
+    color: #1e293b;
+}
+
+.logout-modal-card h3 {
+    color: #1e293b;
+}
+
+.logout-modal-card p {
+    color: #64748b;
+}
+
+.logout-modal-icon {
+    background: #fef2f2;
+    color: #dc2626;
+
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.logout-cancel-btn {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+.logout-cancel-btn:hover {
+    background: #e2e8f0;
+}
+
+.logout-confirm-btn {
+    background: #dc2626;
+}
+
+.logout-confirm-btn:hover {
+    background: #b91c1c;
+}
+
+body.dark-mode .logout-modal-card {
+    background: #0f172a;
+    color: #f8fafc;
+    border: 1px solid #1e293b;
+}
+
+body.dark-mode .logout-modal-card h3 {
+    color: #f8fafc;
+}
+
+body.dark-mode .logout-modal-card p {
+    color: #94a3b8;
+}
+
+body.dark-mode .logout-modal-icon {
+    background: #450a0a;
+    color: #fca5a5;
+}
+
+body.dark-mode .logout-cancel-btn {
+    background: #1e293b;
+    color: #e2e8f0;
+}
+
+body.dark-mode .logout-cancel-btn:hover {
+    background: #334155;
+}
+
+
+/* ========================================
+   MAIN DARK MODE
+======================================== */
+
+body.dark-mode #appPage {
+    background: #020617 !important;
+}
+
+body.dark-mode #loginPage {
+    background:
+        linear-gradient(135deg,
+            #020617 0%,
+            #0f172a 55%,
+            #052e16 100%) !important;
+}
+
+body.dark-mode #loginPage>div>div {
+    background: #0f172a;
+    border: 1px solid #1e293b;
+}
+
+body.dark-mode #loginPage h1,
+body.dark-mode #loginPage label {
+    color: #f8fafc;
+}
+
+body.dark-mode #loginPage p {
+    color: #94a3b8;
+}
+
+body.dark-mode #loginPage input {
+    background: #111827;
+    border-color: #334155;
+    color: #f8fafc;
+}
+
+body.dark-mode #loginPage input::placeholder {
+    color: #64748b;
+}
+
+body.dark-mode #loginPage input:focus {
+    border-color: #22c55e;
+    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.15);
+}
+
+body.dark-mode #loginBtn {
+    background: #16a34a;
+}
+
+body.dark-mode #loginBtn:hover {
+    background: #15803d;
+}
+
+
+/* ========================================
+   HEADER
+======================================== */
+
+header {
+    transition:
+        background 0.3s ease,
+        border-color 0.3s ease;
+}
+
+body.dark-mode header {
+    background: rgba(15, 23, 42, 0.95) !important;
+    border-color: #1e293b !important;
+}
+
+body.dark-mode header h1,
+body.dark-mode #headerClock {
+    color: #f8fafc !important;
+}
+
+body.dark-mode header p,
+body.dark-mode #headerUserDisplay {
+    color: #94a3b8 !important;
+}
+
+body.dark-mode header button {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    color: #f8fafc !important;
+}
+
+body.dark-mode header button:hover {
+    background: #334155 !important;
+}
+
+
+/* ========================================
+   MAIN CARD
+======================================== */
+
+.main-card {
+    transition:
+        background 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+body.dark-mode .main-card {
+    background: #0f172a !important;
+    border-color: #1e293b !important;
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-mode #pageModeTitle,
+body.dark-mode .main-card h2,
+body.dark-mode .main-card h3 {
+    color: #f8fafc !important;
+}
+
+body.dark-mode #pageModeDescription,
+body.dark-mode .main-card p {
+    color: #94a3b8;
+}
+
+
+/* ========================================
+   SAMPLE CARD
+======================================== */
+
+body.dark-mode #sampleA,
+body.dark-mode #sampleB {
+    background: #111827 !important;
+    border-color: #334155 !important;
+}
+
+body.dark-mode #sampleA h3,
+body.dark-mode #sampleB h3 {
+    color: #f8fafc !important;
+}
+
+body.dark-mode #sampleA .border-b,
+body.dark-mode #sampleB .border-b {
+    border-color: #334155 !important;
+}
+
+body.dark-mode #sampleA .text-slate-500,
+body.dark-mode #sampleB .text-slate-500 {
+    color: #94a3b8 !important;
+}
+
+
+/* ========================================
    VALUE BOX
 ======================================== */
 
 .value-box {
-    @apply flex h-11 items-center justify-center rounded-xl border border-slate-200 bg-white text-sm font-semibold text-slate-700 shadow-sm;
+    @apply flex h-11 items-center justify-center rounded-xl border border-slate-200 bg-white text-sm font-semibold text-slate-700 shadow-sm transition duration-300;
+}
+
+body.dark-mode .value-box {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    color: #f8fafc !important;
+    box-shadow: none;
+}
+
+
+/* ========================================
+   SKELETON
+======================================== */
+
+.skeleton-box {
+    background: #e2e8f0;
+}
+
+body.dark-mode .skeleton-box {
+    background: #334155;
+}
+
+
+/* ========================================
+   AVERAGE
+======================================== */
+
+.average-box {
+    background: #15803d;
+    border: 1px solid #16a34a;
+    box-shadow:
+        0 5px 14px rgba(22, 163, 74, 0.22);
+}
+
+/* Manual Average - Light Mode */
+.average-panel {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    box-shadow:
+        0 5px 14px rgba(15, 23, 42, 0.08);
+    transition:
+        background 0.3s ease,
+        border-color 0.3s ease;
+}
+
+.average-label {
+    color: #64748b !important;
+}
+
+.average-result {
+    background: #334155;
+    border: 1px solid #475569;
+    color: #ffffff;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        0 5px 14px rgba(15, 23, 42, 0.14);
+}
+
+/* Manual Average - Dark Mode */
+body.dark-mode .average-panel {
+    background: #052e16;
+    border-color: #166534;
+}
+
+body.dark-mode .average-result {
+    background: #166534;
+    border-color: #22c55e;
+}
+
+body.dark-mode .average-label {
+    color: #86efac !important;
+}
+
+
+/* ========================================
+   GENERATE BUTTON
+======================================== */
+
+#generateBtn {
+    transition:
+        background 0.25s ease,
+        transform 0.15s ease,
+        box-shadow 0.25s ease;
+}
+
+body.dark-mode #generateBtn {
+    background: #16a34a !important;
+    color: #ffffff !important;
+
+    box-shadow:
+        0 8px 20px rgba(22, 163, 74, 0.2);
+}
+
+body.dark-mode #generateBtn:hover {
+    background: #15803d !important;
+}
+
+body.dark-mode #generateBtn:active {
+    transform: scale(0.98);
+}
+
+
+/* ========================================
+   MANUAL INPUT
+======================================== */
+
+body.dark-mode .manual-value {
+    background: #111827 !important;
+    border-color: #334155 !important;
+    color: #f8fafc !important;
+}
+
+body.dark-mode .manual-value:focus {
+    border-color: #22c55e !important;
+    box-shadow:
+        0 0 0 2px rgba(34, 197, 94, 0.15) !important;
+}
+
+
+/* ========================================
+   SIDEBAR
+======================================== */
+
+#sidebar {
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease;
+}
+
+body.dark-mode #sidebar {
+    background: #0f172a !important;
+    color: #e2e8f0;
+}
+
+body.dark-mode #sidebar>div {
+    border-color: #1e293b !important;
+}
+
+body.dark-mode #sidebar p.text-slate-800,
+body.dark-mode #sidebar .text-slate-800 {
+    color: #f8fafc !important;
+}
+
+body.dark-mode #sidebar .text-slate-700 {
+    color: #e2e8f0 !important;
+}
+
+body.dark-mode #sidebar .text-slate-600 {
+    color: #cbd5e1 !important;
+}
+
+body.dark-mode #sidebar .text-slate-500 {
+    color: #94a3b8 !important;
+}
+
+body.dark-mode #sidebar .text-slate-400 {
+    color: #64748b !important;
+}
+
+body.dark-mode #sidebar .bg-slate-50 {
+    background: #111827 !important;
+}
+
+body.dark-mode #sidebar button.border-slate-200 {
+    border-color: #334155 !important;
+}
+
+body.dark-mode #sidebar button.hover\:bg-slate-100:hover {
+    background: #1e293b !important;
 }
 
 
@@ -95,14 +869,23 @@
         background 0.2s,
         color 0.2s,
         transform 0.15s,
-        border-color 0.2s;
+        border-color 0.2s,
+        box-shadow 0.2s;
 }
-
 
 .sidebar-menu-btn:active {
     transform: scale(0.98);
 }
 
+body.dark-mode .sidebar-menu-btn {
+    background: #111827;
+    border-color: #334155;
+    color: #cbd5e1;
+}
+
+body.dark-mode .sidebar-menu-btn:hover {
+    background: #1e293b;
+}
 
 .sidebar-menu-active {
     background: #1e293b;
@@ -112,8 +895,16 @@
     color: white;
 
     box-shadow:
-        0 6px 16px
-        rgba(15, 23, 42, 0.15);
+        0 6px 16px rgba(15, 23, 42, 0.15);
+}
+
+body.dark-mode .sidebar-menu-active {
+    background: #16a34a;
+    border-color: #16a34a;
+    color: white;
+
+    box-shadow:
+        0 6px 18px rgba(22, 163, 74, 0.2);
 }
 
 
@@ -139,14 +930,23 @@
         background 0.2s,
         color 0.2s,
         transform 0.15s,
-        border-color 0.2s;
+        border-color 0.2s,
+        box-shadow 0.2s;
 }
-
 
 .sidebar-decimal-btn:active {
     transform: scale(0.97);
 }
 
+body.dark-mode .sidebar-decimal-btn {
+    background: #111827;
+    border-color: #334155;
+    color: #94a3b8;
+}
+
+body.dark-mode .sidebar-decimal-btn:hover {
+    background: #1e293b;
+}
 
 .sidebar-decimal-active {
     background: #1e293b;
@@ -156,8 +956,135 @@
     color: white;
 
     box-shadow:
-        0 4px 12px
-        rgba(15, 23, 42, 0.15);
+        0 4px 12px rgba(15, 23, 42, 0.15);
+}
+
+body.dark-mode .sidebar-decimal-active {
+    background: #16a34a;
+    border-color: #16a34a;
+    color: white;
+
+    box-shadow:
+        0 4px 14px rgba(22, 163, 74, 0.2);
+}
+
+
+/* ========================================
+   THEME TOGGLE
+======================================== */
+
+.theme-toggle-btn {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 12px 14px;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+
+    background: white;
+    color: #475569;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.15s ease;
+}
+
+.theme-toggle-btn:active {
+    transform: scale(0.98);
+}
+
+.theme-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 34px;
+    height: 34px;
+
+    border-radius: 10px;
+
+    background: #f1f5f9;
+
+    font-size: 17px;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease;
+}
+
+.theme-switch {
+    position: relative;
+
+    width: 44px;
+    height: 24px;
+
+    padding: 3px;
+
+    border-radius: 999px;
+
+    background: #cbd5e1;
+
+    transition:
+        background 0.25s ease;
+}
+
+.theme-switch-thumb {
+    display: block;
+
+    width: 18px;
+    height: 18px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    box-shadow:
+        0 2px 6px rgba(15, 23, 42, 0.2);
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease;
+}
+
+body.dark-mode .theme-toggle-btn {
+    background: #111827;
+    border-color: #334155;
+    color: #f8fafc;
+}
+
+body.dark-mode .theme-icon {
+    background: #14532d;
+    color: #86efac;
+}
+
+body.dark-mode .theme-switch {
+    background: #16a34a;
+}
+
+body.dark-mode .theme-switch-thumb {
+    transform: translateX(20px);
+    background: white;
+}
+
+
+/* ========================================
+   LOGOUT
+======================================== */
+
+body.dark-mode #sidebarUserDisplay {
+    color: #e2e8f0 !important;
+}
+
+body.dark-mode #sidebar button[onclick="handleLogout()"] {
+    background: rgba(127, 29, 29, 0.25) !important;
+    border-color: #7f1d1d !important;
+    color: #fca5a5 !important;
 }
 
 
@@ -171,11 +1098,172 @@
         height: 32px;
     }
 
-
     .marquee span {
         font-size: 11px;
-
         animation-duration: 18s;
     }
 
+}
+
+/* ========================================
+   LOGIN THEME TOGGLE
+======================================== */
+
+#loginThemeToggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 80;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 46px;
+    height: 46px;
+
+    border: 1px solid rgba(148, 163, 184, 0.28);
+    border-radius: 15px;
+
+    background: rgba(255, 255, 255, 0.85);
+    color: #334155;
+
+    backdrop-filter: blur(12px);
+
+    box-shadow:
+        0 8px 24px rgba(15, 23, 42, 0.10);
+
+    font-size: 21px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.15s ease;
+}
+
+#loginThemeToggle:hover {
+    transform: translateY(-2px);
+
+    background: #ffffff;
+
+    box-shadow:
+        0 12px 28px rgba(15, 23, 42, 0.15);
+}
+
+#loginThemeToggle:active {
+    transform: scale(0.94);
+}
+
+
+/* ========================================
+   LOGIN DARK MODE
+======================================== */
+
+body.dark-mode #loginThemeToggle {
+    background: rgba(15, 23, 42, 0.88);
+
+    border-color: #334155;
+
+    color: #f8fafc;
+
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+body.dark-mode #loginThemeToggle:hover {
+    background: #1e293b;
+
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.45);
+}
+
+
+/* LOGIN PAGE DARK MODE */
+
+body.dark-mode #loginPage {
+    background:
+        linear-gradient(135deg,
+            #020617,
+            #0f172a,
+            #111827) !important;
+}
+
+body.dark-mode #loginPage>div>div {
+    background: #111827 !important;
+
+    border:
+        1px solid #1e293b;
+
+    box-shadow:
+        0 24px 60px rgba(0, 0, 0, 0.40);
+}
+
+body.dark-mode #loginPage h1 {
+    color: #f8fafc !important;
+}
+
+body.dark-mode #loginPage h1 span {
+    color: #4ade80 !important;
+}
+
+body.dark-mode #loginPage p {
+    color: #94a3b8 !important;
+}
+
+body.dark-mode #loginPage label {
+    color: #cbd5e1 !important;
+}
+
+body.dark-mode #loginPage input {
+    background: #0f172a !important;
+
+    border-color: #334155 !important;
+
+    color: #f8fafc !important;
+}
+
+body.dark-mode #loginPage input::placeholder {
+    color: #64748b !important;
+}
+
+body.dark-mode #loginPage input:focus {
+    border-color: #22c55e !important;
+
+    box-shadow:
+        0 0 0 2px rgba(34, 197, 94, 0.15) !important;
+}
+
+body.dark-mode #loginPage #loginBtn {
+    background: #16a34a !important;
+}
+
+body.dark-mode #loginPage #loginBtn:hover {
+    background: #15803d !important;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 640px) {
+
+    #loginThemeToggle {
+        top: 14px;
+        right: 14px;
+
+        width: 42px;
+        height: 42px;
+
+        border-radius: 14px;
+
+        font-size: 19px;
+    }
+
+}
+
+#loginThemeToggle.hidden {
+    display: none !important;
 }
