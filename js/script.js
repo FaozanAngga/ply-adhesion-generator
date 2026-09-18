@@ -3,6 +3,7 @@ const USERS = [
     { username: "Anton", password: "015576", role: "User" },
     { username: "Risma", password: "031059", role: "User" },
     { username: "Neng", password: "013180", role: "User" }
+    { username: "Crista", password: "19310", role: "User" }
 ];
 
 let decimalPrecision = 2;
